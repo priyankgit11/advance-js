@@ -3,41 +3,36 @@
 const imgURL = " https://starwars-visualguide.com/assets/img/characters/";
 const baseURL = "https://swapi.dev/api/people";
 
-const mainPage = document.querySelector("#main-page");
-mainPage.classList.remove("hidden");
-
 const btnPrev = document.querySelector(".btn-prev");
 const btnNext = document.querySelector(".btn-next");
-const cardList = document.querySelector("#cardlist");
+const cardList = document.querySelector(".cards");
 
 const model = document.querySelector(".model");
 const modelContent = document.querySelector(".model .model-content");
 const closeModel = document.querySelector(".close");
 
 const charName = document.querySelector(".char-name");
-const charImg = document.querySelector(".portrait");
+const charImg = document.getElementById("charImg");
 const [birthyear, gender, species, homeworld, films] =
   document.querySelectorAll(".stats-data");
 
 const characters = [];
-let currPage = 1;
-let totalPages;
+let currentPage = 1;
+let totalPages = 0;
 
 btnNext.addEventListener("click", function () {
-  currPage += 1;
+  currentPage += 1;
   init();
 });
 
 btnPrev.addEventListener("click", function () {
-  currPage -= 1;
+  currentPage -= 1;
   init();
 });
 
 closeModel.addEventListener("click", function () {
   model.classList.add("hidden");
   charName.innerHTML = "";
-
-  console.log(model);
   modelContent.classList.add("hidden");
 });
 
@@ -68,20 +63,20 @@ const getDetails = async function (url, errorMsg = "Something went wrong") {
 
 const getFilms = async function (films) {
   try {
-    const filmsarr = await Promise.all(
+    const charFilms = await Promise.all(
       films.map(async (f) => {
         const t = await getDetails(f, "Film not found");
         return t;
       })
     );
-    return filmsarr;
+    return charFilms;
   } catch (error) {
     console.error(error);
     return [];
   }
 };
 
-const renderData = function (page) {
+const show = function (page) {
   const range = {
     low: (page - 1) * 10,
     high: page * 10,
@@ -105,7 +100,7 @@ const renderData = function (page) {
   cardList.insertAdjacentHTML("afterbegin", html);
 };
 
-const displayButtons = function (currPage) {
+const manageButtons = function (currPage) {
   if (currPage === 1) {
     btnNext.classList.remove("hidden");
     btnPrev.classList.add("hidden");
@@ -116,7 +111,6 @@ const displayButtons = function (currPage) {
     btnPrev.classList.remove("hidden");
     btnNext.classList.remove("hidden");
   }
-  console.log(currPage, btnPrev);
 };
 
 const load = async function () {
@@ -125,12 +119,12 @@ const load = async function () {
 };
 
 const init = function () {
-  renderData(currPage);
-  displayButtons(currPage);
+  show(currentPage);
+  manageButtons(currentPage);
 };
 load();
 
-const renderDetails = async function (obj) {
+const showDetails = async function (obj) {
   const char = characters[obj];
 
   if (char.homeworld.includes("https")) {
@@ -142,7 +136,6 @@ const renderDetails = async function (obj) {
         : await getDetails(char.species[0], "HomeWorld not found");
 
     char.films = await getFilms(char.films, "Films not found");
-    console.log(char.films);
   }
 
   charImg.src = `${imgURL}/${+obj + 1 < 17 ? +obj + 1 : +obj + 2}.jpg`;
@@ -164,5 +157,5 @@ const renderDetails = async function (obj) {
 
 const openModel = async function (obj) {
   model.classList.remove("hidden");
-  await renderDetails(obj.id);
+  await showDetails(obj.id);
 };

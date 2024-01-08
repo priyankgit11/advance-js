@@ -17,47 +17,45 @@
   </head>
 
   <body>
-    <div id="main-page">
-      <div class="flex-container">
-        <div id="cardlist">
-          <!-- <div class="card" id="1" onclick="openModel(this)">
+    <div class="flex-container">
+      <div class="cards">
+        <!-- <div class="card" id="1" onclick="openModel(this)">
           <img id="1" class="picture" src="https://starwars-visualguide.com/assets/img/characters/2.jpg">
           <div class="title">C-3PO</div>
         </div> -->
-        </div>
+      </div>
 
-        <div class="btns">
-          <button class="hidden btn btn-prev btn-primary">Previous</button>
-          <button class="btn btn-next btn-primary hidden">Next</button>
-        </div>
+      <div class="btns">
+        <button class="hidden btn btn-prev btn-primary">Previous</button>
+        <button class="hidden btn btn-next btn-primary">Next</button>
+      </div>
 
-        <!-- MODEL -->
-        <div id="myModel" class="model hidden">
-          <div class="model-content hidden">
-            <span class="close">&times;</span>
-            <div class="grid-container">
-              <div class="char-name">Character Name :</div>
-              <img src="" class="portrait" />
-              <div class="stats">
-                Birth Year :
-                <span class="stats-data"></span>
-              </div>
-              <div class="stats">
-                Gender :
-                <span class="stats-data"></span>
-              </div>
-              <div class="stats">
-                Species :
-                <span class="stats-data"></span>
-              </div>
-              <div class="stats">
-                Homeworld :
-                <span class="stats-data"></span>
-              </div>
-              <div class="stats">
-                Films :
-                <span class="stats-data"></span>
-              </div>
+      <!-- MODEL -->
+      <div id="myModel" class="model hidden">
+        <div class="model-content hidden">
+          <span class="close">&times;</span>
+          <div class="grid-container">
+            <div class="char-name">Character Name :</div>
+            <img src="" id="charImg" />
+            <div class="stats">
+              Birth Year :
+              <span class="stats-data"></span>
+            </div>
+            <div class="stats">
+              Gender :
+              <span class="stats-data"></span>
+            </div>
+            <div class="stats">
+              Species :
+              <span class="stats-data"></span>
+            </div>
+            <div class="stats">
+              Homeworld :
+              <span class="stats-data"></span>
+            </div>
+            <div class="stats">
+              Films :
+              <span class="stats-data"></span>
             </div>
           </div>
         </div>
